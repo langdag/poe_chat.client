@@ -6,7 +6,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-  
+
     const handleLogin = async (e) => {
       e.preventDefault();
       setError(null);
@@ -20,17 +20,37 @@ function Login() {
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.error || "Login failed");
+          console.log(Object.values(errorData)[0]);
+          setError(Object.values(errorData)[0]);
+          return;
         }
 
         const data = await response.json();
         localStorage.setItem("token", data.token);
-        navigate("/connect");
+
+        await fetchUser();
+
+        navigate("/dashboard");
       } catch (err) {
         setError(err.message);
       }
     };
-  
+
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        navigate("/");
+        return;
+      }
+      const response = await fetch("http://localhost:8080/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("userID", data.id);
+      }
+    };
+
     return (
       <div className="App">
         <h2>Login</h2>
