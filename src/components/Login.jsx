@@ -28,9 +28,9 @@ function Login() {
         const data = await response.json();
         localStorage.setItem("token", data.token);
 
-        await fetchUser();
-
-        navigate("/dashboard");
+        fetchUser().then(() => {
+          navigate("/dashboard");
+        });
       } catch (err) {
         setError(err.message);
       }
@@ -43,11 +43,11 @@ function Login() {
         return;
       }
       const response = await fetch("http://localhost:8080/me", {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `${token}` },
       });
       if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("userID", data.id);
+        const userData = await response.json();
+        localStorage.setItem("userID", userData.data.id);
       }
     };
 

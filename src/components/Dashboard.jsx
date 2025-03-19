@@ -16,15 +16,15 @@ function Dashboard() {
       }
 
       const response = await fetch(`http://localhost:8080/users/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `${token}` },
       });
 
       if (response.ok) {
-        const data = await response.json();
-        setUser(data);
+        const fetchedUserData = await response.json();
+        setUser(fetchedUserData.data);
 
         // Show modal if Telegram or TikTok isn't connected
-        if (!data.telegram_connected || !data.tiktok_connected) {
+        if (!fetchedUserData.data.telegram_connected || !fetchedUserData.data.tiktok_connected) {
           setShowModal(true);
         }
       }
@@ -43,7 +43,7 @@ function Dashboard() {
 
   return (
     <div>
-      <h2>Welcome, {user?.name}!</h2>
+      <h2>Welcome, {user?.username}!</h2>
       <p>Email: {user?.email}</p>
       <p>Telegram Connected: {user?.telegram_connected ? "Yes" : "No"}</p>
       <p>TikTok Connected: {user?.tiktok_connected ? "Yes" : "No"}</p>
