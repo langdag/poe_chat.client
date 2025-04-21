@@ -35,6 +35,25 @@ h1 {
   text-decoration: underline;
 }
 
+.nav-link.logout-button {
+  color: white;
+  text-decoration: inherit;
+  font-size: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-family: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.nav-link.logout-button:hover {
+  text-decoration: underline;
+}
+
 .btn {
   padding: 10px 20px;
   margin: 10px;
