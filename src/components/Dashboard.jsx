@@ -42,21 +42,23 @@ function Dashboard() {
   // };
 
   return (
-    <div>
-      <h2>Welcome, {user?.username}!</h2>
-      <p>Email: {user?.email}</p>
-      <p>Telegram Connected: {user?.telegram_connected ? "Yes" : "No"}</p>
-      <p>TikTok Connected: {user?.tiktok_connected ? "Yes" : "No"}</p>
-
-      {showModal && (
-        <div className="modal">
-          <h3>Connect Your Accounts</h3>
-          <p>Unlock features like chat sync and analytics.</p>
-          <button onClick={() => handleConnect("telegram")}>Connect Telegram</button>
-          <button onClick={() => handleConnect("tiktok")}>Connect TikTok</button>
-          <button onClick={() => setShowModal(false)}>Skip for Now</button>
-        </div>
-      )}
+    <div className="dashboard-container">
+      <div className="dashboard-header">
+        <h2>Welcome, {user?.username}!</h2>
+      </div>
+      <div className="dashboard-info">
+        <p>Email: <span className="info-value">{user?.email}</span></p>
+        <p>Telegram Connected: <span className={`connection-status ${user?.telegram_connected ? 'connected' : 'disconnected'}`}>{user?.telegram_connected ? "Yes" : "No"}</span>
+          {!user?.telegram_connected && (
+            <button onClick={() => handleConnect("telegram")} className="connect-button telegram-inline">Connect</button>
+          )}
+        </p>
+        <p>TikTok Connected: <span className={`connection-status ${user?.tiktok_connected ? 'connected' : 'disconnected'}`}>{user?.tiktok_connected ? "Yes" : "No"}</span>
+          {!user?.tiktok_connected && (
+            <button onClick={() => handleConnect("tiktok")} className="connect-button tiktok-inline">Connect</button>
+          )}
+        </p>
+      </div>
     </div>
   );
 }
