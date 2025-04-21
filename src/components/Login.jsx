@@ -54,10 +54,10 @@ function Login() {
     };
 
     return (
-      <div className="App">
+      <div className="login-container">
         <h2>Login</h2>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        <form onSubmit={handleLogin}>
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleLogin} className="login-form">
           <input
             type="email"
             placeholder="Email"
@@ -72,7 +72,7 @@ function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Login</button>
+          <button type="submit" className="login-button">Login</button>
         </form>
       </div>
     );
